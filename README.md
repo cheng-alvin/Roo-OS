@@ -1,5 +1,5 @@
 ## Roo OS
-[](https://img.shields.io/github/languages/code-size/CHENG-Alvin/Roo-os) [](https://img.shields.io/github/license/CHENG-Alvin/Roo-os)
+![](https://img.shields.io/github/languages/code-size/CHENG-Alvin/Roo-os) ![](https://img.shields.io/github/license/CHENG-Alvin/Roo-os)
 Welcome to the Roo os repository, this is where the source code of this OS is stored.
 
 ## License 
