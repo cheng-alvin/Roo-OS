@@ -3,6 +3,7 @@ SRC_DIR=./src
 BUILD_DIR=./build
 LINKER=x86_64-elf-ld
 CC=x86_64-elf-gcc
+CPPC=x86_64-elf-g++
 
 all-roo:
 	@make clean
@@ -23,7 +24,7 @@ run:
 kernel:
 	@echo "Building kernel..."
 	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/kernel.c -o ${BUILD_DIR}/kernel_main.o
-	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/port.c -o ${BUILD_DIR}/kernel_port.o
+	@${CPPC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/port.cpp -o ${BUILD_DIR}/kernel_port.o
 	@${ASM} ${SRC_DIR}/kernel/kernel_entry.asm -f elf64 -o ${BUILD_DIR}/kernel_entry.o
 	@echo "Kernel built."
 
