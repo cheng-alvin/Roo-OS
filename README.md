@@ -9,7 +9,18 @@ This OS is licensed under the MIT License, basically it's free and you can do an
 If you want a detailed license please check the [LICENSE](https://github.com/CHENG-Alvin/Roo-OS/blob/main/LICENSE/) file.
 
 ## Download
-The Os is still a work in progress and will be completed soon...
+The OS is still a work in progress and will be completed soon, however if you want to test Roo-os you may build it your self by typing the commands below:
+
+Clone source:
+```
+git clone https://github.com/CHENG-Alvin/Roo-OS/ # Clones the repository 
+```
+
+Build with GNU-make:
+
+```
+make all-roo # Builds the OS using the pre made Makefile
+```
 
 ## Contributing
 You are welcome to contribute to this project, to contribute to this project you must fork the repository or create a pull request.
