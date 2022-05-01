@@ -1,6 +1,9 @@
+#include "./drivers/printutils.h"
+#include "./drivers/types.h"
+
 void _start()
 {
-    char *mem = (char *)0xb8000;
-    *mem = 'H';
-    __asm__("hlt");
+    printutils_clear_screen();
+    while(true){}
+    // printutils_print_string("hello \0", WHITE);
 }
