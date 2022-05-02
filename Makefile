@@ -19,15 +19,15 @@ bootloader:
 
 run:
 	@echo "Running..."
-	@qemu-system-x86_64 -fda ${BUILD_DIR}/image.bin
+	@qemu-system-x86_64 -fda ${BUILD_DIR}/image.bin -vga std
 
 kernel:
 	@echo "Building kernel..."
-	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/kernel.c -o ${BUILD_DIR}/kernel_main.o
-	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/port.c -o ${BUILD_DIR}/kernel_port.o
-	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/printutils.c -o ${BUILD_DIR}/kernel_printutils.o
+	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/kernel.c -o ${BUILD_DIR}/kernel_main.o 
+	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/port.c -o ${BUILD_DIR}/kernel_port.o 
+	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/printutils.c -o ${BUILD_DIR}/kernel_printutils.o 
 	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/types.c -o ${BUILD_DIR}/kernel_types.o
-	@${ASM} ${SRC_DIR}/kernel/kernel_entry.asm -f elf64 -o ${BUILD_DIR}/kernel_entry.o
+	@${ASM} ${SRC_DIR}/kernel/kernel_entry.asm -f elf64 -o ${BUILD_DIR}/kernel_entry.o 
 	@echo "Kernel built."
 
 clean:
