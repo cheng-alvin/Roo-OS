@@ -1,3 +1,13 @@
+; Logic for the print function: 
+; 
+; int i = 0; 'i' is the pointer in 'bx' register
+; 
+; while(string[i] != 0) iterate until we reach the NULL byte
+; { 
+;    print string[i]; printing with interrupt hex 10
+;    i++; increment to next pointer in 'bx' register
+; }
+
 print:
     pusha 
 
