@@ -37,15 +37,12 @@ int printutils_get_cursor_offset()
 
 void printutils_clear_screen()
 {
-    char *screen = (char*)VIDEO_ADDRESS;
+    char *screen = (char *)VIDEO_ADDRESS;
 
-    for (int i = 0; i <= SCREEN_AREA; i++)
+    for (int i = 0; i < SCREEN_AREA; i++)
     {
-        screen[i] = ' ';
-
         screen[i * 2] = ' ';
         screen[i * 2 + 1] = WHITE;
-      
     }
 
     printutils_set_cursor_offset(printutils_get_offset(0, 0));
@@ -53,17 +50,17 @@ void printutils_clear_screen()
 
 void printutils_print_string(string content, unsigned char color)
 {
-    int i = 0;
 
-    while (content[i] != 0)
+    for (int i = 0; content[i] != '\0'; i++)
     {
-        printutils_print_char(content[i++], printutils_get_cursor_offset(), color);
+        // printutils_print_char(content[i], printutils_get_cursor_offset(), color);
     }
 }
 
-void printutils_print_char(char content, int offset, unsigned char color)
+void printutils_print_char(char content, int col, int row, char color)
 {
-    unsigned char *screen = (unsigned char *)VIDEO_ADDRESS;
+    char *screen = (char *)VIDEO_ADDRESS;
+    int offset = printutils_get_offset(row, col);
 
     if (content == '\n')
     {
@@ -75,7 +72,7 @@ void printutils_print_char(char content, int offset, unsigned char color)
         screen[offset] = content;
         screen[offset + 1] = color;
     }
-
     offset += 2;
+
     printutils_set_cursor_offset(offset);
 }
