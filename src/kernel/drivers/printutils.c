@@ -1,6 +1,6 @@
-#include "./printutils.h"
-#include "./types.h"
+#include "../stdlib/ctypes.h"
 #include "./port.h"
+#include "./printutils.h"
 
 int printutils_get_offset(int row, int col)
 {
@@ -39,7 +39,7 @@ void printutils_clear_screen()
 {
     char *screen = (char *)VIDEO_ADDRESS;
 
-    for (int i = 0; i < SCREEN_AREA; i++)
+    for (int i = 0; i < SCREEN_AREA + 10; i++)
     {
         screen[i * 2] = ' ';
         screen[i * 2 + 1] = WHITE;
@@ -53,7 +53,7 @@ void printutils_print_string(string content, unsigned char color)
 
     for (int i = 0; content[i] != '\0'; i++)
     {
-        // printutils_print_char(content[i], printutils_get_cursor_offset(), color);
+        printutils_print_char(content[i], printutils_get_offset_col(printutils_get_cursor_offset()) + 1, printutils_get_offset_row(printutils_get_cursor_offset()), color);
     }
 }
 
@@ -64,15 +64,17 @@ void printutils_print_char(char content, int col, int row, char color)
 
     if (content == '\n')
     {
-        printutils_set_cursor_offset(printutils_get_offset(printutils_get_offset_row(offset) + 1, 0));
+        row = printutils_get_offset_row(offset);
+        offset = printutils_get_offset(row +1 , 0);
+        
     }
 
     else
     {
-        screen[offset] = content;
-        screen[offset + 1] = color;
+        screen += offset;
+        *screen = content;
+        screen += 1;
+        *screen = color;
     }
-    offset += 2;
-
-    printutils_set_cursor_offset(offset);
+        printutils_set_cursor_offset(offset);
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "./types.h"
+#include "../stdlib/ctypes.h"
 
 #define VIDEO_ADDRESS 0xb8000
 
@@ -10,7 +10,8 @@
 
 #define WHITE 0x0f
 #define BLACK 0xf0
-#define RED 0xf4
+#define RED 0x04
+#define YELLOW 0x0e
 
 int printutils_get_offset(int row, int col);
 int printutils_get_offset_row(int offset);

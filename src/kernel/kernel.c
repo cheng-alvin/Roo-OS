@@ -1,10 +1,12 @@
 #include "./drivers/printutils.h"
-#include "./drivers/types.h"
+#include "./stdlib/ctypes.h"
+
 int main();
+void _start();
 
 void _start()
 {
-    char *ptr = (char *)0xb8000;
+    char *ptr = (char *)VIDEO_ADDRESS;
 
     if (main() == 0)
     {
@@ -13,13 +15,37 @@ void _start()
 
     else
     {
-        // *ptr = 'E';
+      
+        *ptr = 'E';
+        ptr += 1;
+        *ptr = YELLOW;
+        ptr += 1;
+        *ptr = 'R';
+        ptr += 1;
+        *ptr = YELLOW;
+        ptr += 1;
+        *ptr = 'R';
+        ptr += 1;
+        *ptr = YELLOW;
+        ptr += 1;
+        *ptr = 'O';
+        ptr += 1;
+        *ptr = YELLOW;
+        ptr += 1;
+        *ptr = 'R';
+        ptr += 1;
+        *ptr = YELLOW;
+        ptr += 1;
+        *ptr = '!';
+        ptr += 1;
+        *ptr = YELLOW;
+        ptr += 1;
     }
 }
 
 int main()
 {
     printutils_clear_screen();
-    printutils_print_char('A', printutils_get_offset_col(printutils_get_cursor_offset()) + 1, printutils_get_offset_row(printutils_get_cursor_offset()), WHITE);
-    return 0;
+
+    return -1;
 }
