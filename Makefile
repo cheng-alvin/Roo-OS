@@ -28,7 +28,7 @@ kernel:
 	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/printutils.c -o ${BUILD_DIR}/obj/kernel_printutils.o 
 	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/stdlib/ctypes.c -o ${BUILD_DIR}/obj/stdlib_ctypes.o
 	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/stdlib/math.c -o ${BUILD_DIR}/obj/stdlib_math.o
-		@${CC} -ffreestanding -c ${SRC_DIR}/kernel/stdlib/string.c -o ${BUILD_DIR}/obj/stdlib_string.o
+	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/stdlib/string.c -o ${BUILD_DIR}/obj/stdlib_string.o
 	@${ASM} ${SRC_DIR}/kernel/kernel_entry.asm -f elf64 -o ${BUILD_DIR}/obj/kernel_entry.o 
 	@echo "Kernel built."
 
