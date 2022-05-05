@@ -6,46 +6,16 @@ void _start();
 
 void _start()
 {
-    char *ptr = (char *)VIDEO_ADDRESS;
-
     if (main() == 0)
     {
-        __asm__("hlt");
-    }
-
-    else
-    {
-      
-        *ptr = 'E';
-        ptr += 1;
-        *ptr = YELLOW;
-        ptr += 1;
-        *ptr = 'R';
-        ptr += 1;
-        *ptr = YELLOW;
-        ptr += 1;
-        *ptr = 'R';
-        ptr += 1;
-        *ptr = YELLOW;
-        ptr += 1;
-        *ptr = 'O';
-        ptr += 1;
-        *ptr = YELLOW;
-        ptr += 1;
-        *ptr = 'R';
-        ptr += 1;
-        *ptr = YELLOW;
-        ptr += 1;
-        *ptr = '!';
-        ptr += 1;
-        *ptr = YELLOW;
-        ptr += 1;
+        // __asm__("hlt");
     }
 }
 
 int main()
 {
+    string content = "hello\0";
     printutils_clear_screen();
-
-    return -1;
+    // printutils_print_char(content[1], printutils_get_offset_col(printutils_get_cursor_offset()) + 1, printutils_get_offset_row(printutils_get_cursor_offset()), WHITE);
+    return 0;
 }
