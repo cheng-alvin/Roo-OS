@@ -35,6 +35,28 @@ int printutils_get_cursor_offset()
     return offset * 2;
 }
 
+void printutils_print_char(char content, int col, int row, char color)
+{
+    char *screen = (char *)VIDEO_ADDRESS;
+    int offset = printutils_get_offset(row, col);
+
+    if (content == '\n')
+    {
+        row = printutils_get_offset_row(offset);
+        offset = printutils_get_offset(row + 1, 0);
+    }
+
+    else
+    {
+        screen += offset;
+        *screen = content;
+        screen += 1;
+        *screen = color;
+    }
+    printutils_set_cursor_offset(offset);
+}
+
+
 void printutils_clear_screen()
 {
     char *screen = (char *)VIDEO_ADDRESS;
@@ -50,31 +72,11 @@ void printutils_clear_screen()
 
 void printutils_print_string(string content, unsigned char color)
 {
-
-    for (int i = 0; content[i] != '\0'; i++)
+    int i = 0;
+    while (content[i] != '\0')
     {
         printutils_print_char(content[i], printutils_get_offset_col(printutils_get_cursor_offset()) + 1, printutils_get_offset_row(printutils_get_cursor_offset()), color);
+        i+= 1;
     }
 }
 
-void printutils_print_char(char content, int col, int row, char color)
-{
-    char *screen = (char *)VIDEO_ADDRESS;
-    int offset = printutils_get_offset(row, col);
-
-    if (content == '\n')
-    {
-        row = printutils_get_offset_row(offset);
-        offset = printutils_get_offset(row +1 , 0);
-        
-    }
-
-    else
-    {
-        screen += offset;
-        *screen = content;
-        screen += 1;
-        *screen = color;
-    }
-        printutils_set_cursor_offset(offset);
-}
