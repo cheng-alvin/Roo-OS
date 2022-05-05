@@ -1,14 +1,14 @@
 #include "./ctypes.h"
 #include "./math.h"
 
-float square(float x)
+double square(double x)
 {
     return x * x;
 }
 
-float pow(float x, float y)
+double pow(double x, double y)
 {
-    float result = 1;
+    double result = 1;
 
     for (int i = 0; i < y; i++)
     {
@@ -18,17 +18,17 @@ float pow(float x, float y)
     return result;
 }
 
-float get_square_area(float x, float y)
+double get_square_area(double x, double y)
 {
     return x * y;
 }
 
-float get_cube_volume(float x, float y, float z)
+double get_cube_volume(double x, double y, double z)
 {
     return x * y * z;
 }
 
-float get_circle_area(float r, bool long_pi)
+double get_circle_area(double r, bool long_pi)
 {
     if (long_pi == true)
         return PI_LONG * square(r);
