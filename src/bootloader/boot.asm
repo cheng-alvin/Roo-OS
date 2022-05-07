@@ -15,17 +15,13 @@ start:
     call print
     call nl
 
-    mov dh, 5
+    mov dh, 10
     call load_disk
 
     mov bx, DISK_LOAD_COMPLETE
     call print
 
     call clear
-
-    mov ah, 00h
-    mov al, 03h
-    int 0x10
 
     call pm_enter
 
