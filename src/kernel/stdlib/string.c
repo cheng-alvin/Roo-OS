@@ -2,11 +2,9 @@
 
 int strlen(string str)
 {
-    int i = 0;
-    while (str[i] != 0)
-    {
-        i++;
-    }
+    string p = str;
+    for (; *p != '\0'; p++)
+        ;
 
-    return i;
+    return p - str;
 }

@@ -2,4 +2,4 @@
 
 #include "./ctypes.h"
 
-int strlen(string str);
+string strlen(string str);
