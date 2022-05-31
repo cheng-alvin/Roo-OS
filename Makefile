@@ -24,13 +24,6 @@ run:
 kernel:
 	@echo "Building kernel..."
 	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/kernel.c -o ${BUILD_DIR}/obj/kernel_main.o 
-	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/port.c -o ${BUILD_DIR}/obj/kernel_port.o 
-	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/printutils.c -o ${BUILD_DIR}/obj/kernel_printutils.o 
-	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/exiter.c -o ${BUILD_DIR}/obj/kernel_exiter.o 
-	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/stdlib/ctypes.c -o ${BUILD_DIR}/obj/stdlib_ctypes.o
-	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/stdlib/math.c -o ${BUILD_DIR}/obj/stdlib_math.o
-	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/stdlib/string.c -o ${BUILD_DIR}/obj/stdlib_string.o
-	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/stdlib/mem.c -o ${BUILD_DIR}/obj/stdlib_mem.o
 	@${ASM} ${SRC_DIR}/kernel/kernel_entry.asm -f elf64 -o ${BUILD_DIR}/obj/kernel_entry.o 
 	@echo "Kernel built."
 
@@ -43,7 +36,7 @@ clean:
 
 link:	
 	@echo "Linking..."
-	@${LINKER} -o ${BUILD_DIR}/kernel.bin -Ttext 0x1000 ${BUILD_DIR}/obj/kernel_main.o ${BUILD_DIR}/obj/stdlib_ctypes.o ${BUILD_DIR}/obj/stdlib_mem.o ${BUILD_DIR}/obj/kernel_exiter.o ${BUILD_DIR}/obj/stdlib_math.o ${BUILD_DIR}/obj/kernel_printutils.o ${BUILD_DIR}/obj/stdlib_string.o ${BUILD_DIR}/obj/kernel_port.o ${BUILD_DIR}/obj/kernel_entry.o --oformat binary
+	@${LINKER} -o ${BUILD_DIR}/kernel.bin -Ttext 0x1000 ${BUILD_DIR}/obj/kernel_main.o ${BUILD_DIR}/obj/stdlib_ctypes.o ${BUILD_DIR}/obj/stdlib_mem.o ${BUILD_DIR}/obj/kernel_exiter.o ${BUILD_DIR}/obj/stdlib_math.o ${BUILD_DIR}/obj/kernel_printutils.o ${BUILD_DIR}/obj/kernel_port.o ${BUILD_DIR}/obj/kernel_entry.o --oformat binary
 	@echo "Linked."
 
 merge:
