@@ -19,11 +19,14 @@ bootloader:
 
 run:
 	@echo "Running..."
-	@qemu-system-x86_64 -fda ${BUILD_DIR}/os.bin -vga std
+	@qemu-system-x86_64 -fda ${BUILD_DIR}/os.bin -serial file:${BUILD_DIR}/serial.log
 
 kernel:
 	@echo "Building kernel..."
-	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/kernel.c -o ${BUILD_DIR}/obj/kernel_main.o 
+	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/kernel.c -o ${BUILD_DIR}/obj/kernel_main.o
+	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/screen.c -o ${BUILD_DIR}/obj/screen_driver.o 
+	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/port.c -o ${BUILD_DIR}/obj/port_driver.o 
+	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/lib/ctypes.c -o ${BUILD_DIR}/obj/lib_ctypes.o   
 	@${ASM} ${SRC_DIR}/kernel/kernel_entry.asm -f elf64 -o ${BUILD_DIR}/obj/kernel_entry.o 
 	@echo "Kernel built."
 
@@ -36,7 +39,7 @@ clean:
 
 link:	
 	@echo "Linking..."
-	@${LINKER} -o ${BUILD_DIR}/kernel.bin -Ttext 0x1000 ${BUILD_DIR}/obj/kernel_main.o ${BUILD_DIR}/obj/stdlib_ctypes.o ${BUILD_DIR}/obj/stdlib_mem.o ${BUILD_DIR}/obj/kernel_exiter.o ${BUILD_DIR}/obj/stdlib_math.o ${BUILD_DIR}/obj/kernel_printutils.o ${BUILD_DIR}/obj/kernel_port.o ${BUILD_DIR}/obj/kernel_entry.o --oformat binary
+	@${LINKER} -o ${BUILD_DIR}/kernel.bin -Ttext 0x1000 ${BUILD_DIR}/obj/kernel_main.o ${BUILD_DIR}/obj/port_driver.o  ${BUILD_DIR}/obj/lib_ctypes.o  ${BUILD_DIR}/obj/screen_driver.o  --oformat binary
 	@echo "Linked."
 
 merge:

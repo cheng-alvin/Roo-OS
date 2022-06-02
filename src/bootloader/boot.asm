@@ -23,6 +23,10 @@ start:
 
     call clear
 
+    mov ah, 00h
+    mov al, 03h
+    int 0x10
+    
     call pm_enter
 
 jmp $
