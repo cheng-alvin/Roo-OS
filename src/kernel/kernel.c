@@ -4,7 +4,5 @@
 void _start()
 {
     screenClear(0x00);
-    screenCursorSetPosition(screenCursorGetPositionFromCord(21,20));
-    screenPrintString("hello", 0x0f, 21, 20);
-    return;
+    screenPrintString("Welcome to Roo-Os!", 0x0f, 1, 2);
 }
