@@ -15,7 +15,7 @@ start:
     call print
     call nl
 
-    mov dh, 10
+    mov dh, 20
     call load_disk
 
     mov bx, DISK_LOAD_COMPLETE
@@ -23,10 +23,10 @@ start:
 
     call clear
 
-    mov ah, 00h
-    mov al, 03h
+    mov ah, 0x00
+    mov al, 0x03
     int 0x10
-    
+
     call pm_enter
 
 jmp $
