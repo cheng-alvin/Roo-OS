@@ -10,7 +10,7 @@ uint_16 getPositionFromCord(uint_16 x, uint_16 y)
 void printString(char *str, uint_8 color, int x, int y)
 {
     uint_16 position = getPositionFromCord(x, y);
-    uint_8 *strPtr = (uint_8 *)str;
+    uint_8 *strPtr = (uint_8 *)str + 2;
 
     while (*strPtr != 0)
     {
@@ -21,10 +21,9 @@ void printString(char *str, uint_8 color, int x, int y)
         position += 2;
     }
 
-    *((volatile uint_8 *)VGA_ADDRESS + getPositionFromCord(x, y)) = ' ';
-    *((volatile uint_8 *)VGA_ADDRESS + (getPositionFromCord(x, y) + 1)) = 0x00;
-
     setCursorPosition(position / 2);
+
+    strPtr = NULL;
 }
 
 uint_16 getXCordFromPosition(uint_16 position)

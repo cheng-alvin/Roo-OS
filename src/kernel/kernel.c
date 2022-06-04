@@ -5,6 +5,8 @@
 void _start()
 {
     screenClear(0x00);
-    printString("Welcome!", 0x0f, 9, 8);
-    printString("Welcome!", 0x0f, 1, 2);
+    printString("Hello", 0x0f, 9, 8);
+    printString("pp", 0x0f, 9, 10);
+    printString("CC", 0x0f, 9, 12);
+    printString("Cpp", 0x0f, 9, 14);
 }
