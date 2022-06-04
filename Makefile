@@ -19,7 +19,7 @@ bootloader:
 
 run:
 	@echo "Running..."
-	@qemu-system-x86_64 -fda ${BUILD_DIR}/os.bin -serial file:${BUILD_DIR}/serial.log
+	@qemu-system-x86_64 -fda ${BUILD_DIR}/os.bin -serial file:${BUILD_DIR}/serial.log -soundhw pcspk
 
 kernel:
 	@echo "Building kernel..."
@@ -27,6 +27,7 @@ kernel:
 	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/screen.c -o ${BUILD_DIR}/obj/screen_driver.o 
 	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/port.c -o ${BUILD_DIR}/obj/port_driver.o 
 	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/lib/ctypes.c -o ${BUILD_DIR}/obj/lib_ctypes.o   
+		@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/sound.c -o ${BUILD_DIR}/obj/sound_driver.o   
 	@${ASM} ${SRC_DIR}/kernel/kernel_entry.asm -f elf64 -o ${BUILD_DIR}/obj/kernel_entry.o 
 	@echo "Kernel built."
 
@@ -39,7 +40,7 @@ clean:
 
 link:	
 	@echo "Linking..."
-	@${LINKER} -o ${BUILD_DIR}/kernel.bin -Ttext 0x1000 ${BUILD_DIR}/obj/kernel_main.o ${BUILD_DIR}/obj/port_driver.o  ${BUILD_DIR}/obj/lib_ctypes.o  ${BUILD_DIR}/obj/screen_driver.o  --oformat binary
+	@${LINKER} -o ${BUILD_DIR}/kernel.bin -Ttext 0x1000 ${BUILD_DIR}/obj/kernel_main.o ${BUILD_DIR}/obj/sound_driver.o ${BUILD_DIR}/obj/port_driver.o  ${BUILD_DIR}/obj/lib_ctypes.o  ${BUILD_DIR}/obj/screen_driver.o  --oformat binary
 	@echo "Linked."
 
 merge:

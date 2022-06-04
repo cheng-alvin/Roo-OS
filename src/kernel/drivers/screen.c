@@ -2,42 +2,42 @@
 #include "../lib/ctypes.h"
 #include "./screen.h"
 
-uint_16 screenCursorGetPositionFromCord(uint_16 x, uint_16 y)
+uint_16 getPositionFromCord(uint_16 x, uint_16 y)
 {
     return y * VGA_WIDTH + x;
 }
 
-void screenPrintString(char *str, uint_8 color, int x, int y)
+void printString(char *str, uint_8 color, int x, int y)
 {
-    uint_16 position = screenCursorGetPositionFromCord(x, y);
+    uint_16 position = getPositionFromCord(x, y);
     uint_8 *strPtr = (uint_8 *)str;
 
     while (*strPtr != 0)
     {
-        *((uint_8 *)VGA_ADDRESS + position) = *strPtr;
-        *((uint_8 *)VGA_ADDRESS + (position + 1)) = color;
+        *((volatile uint_8 *)VGA_ADDRESS + position) = *strPtr;
+        *((volatile uint_8 *)VGA_ADDRESS + (position + 1)) = color;
 
         strPtr++;
-        position+= 2;
+        position += 2;
     }
 
-    *((uint_8 *)VGA_ADDRESS + screenCursorGetPositionFromCord(x, y)) = ' ';
-    *((uint_8 *)VGA_ADDRESS + (screenCursorGetPositionFromCord(x, y) + 1)) = 0x00;
-    
-    screenCursorSetPosition(position / 2);
+    *((volatile uint_8 *)VGA_ADDRESS + getPositionFromCord(x, y)) = ' ';
+    *((volatile uint_8 *)VGA_ADDRESS + (getPositionFromCord(x, y) + 1)) = 0x00;
+
+    setCursorPosition(position / 2);
 }
 
-uint_16 screenGetCursorXFromPosition(uint_16 position)
+uint_16 getXCordFromPosition(uint_16 position)
 {
     return position / (2 * VGA_HEIGHT);
 }
 
-uint_16 screenGetCursorYFromPosition(uint_16 position)
+uint_16 getYCordFromPosition(uint_16 position)
 {
-    return (position - screenGetCursorXFromPosition(position) * 2 * VGA_HEIGHT) / 2;
+    return (position - getXCordFromPosition(position) * 2 * VGA_HEIGHT) / 2;
 }
 
-int screenCursorGetPosition()
+int getCursorPosition()
 {
     int position;
 
@@ -58,10 +58,10 @@ void screenClear(uint_8 color)
         *(((uint_8 *)VGA_ADDRESS + i) + 1) = color;
     }
 
-    screenCursorSetPosition(0);
+    setCursorPosition(0);
 }
 
-void screenCursorSetPosition(uint_16 position)
+void setCursorPosition(uint_16 position)
 {
     if (position > VGA_HEIGHT * VGA_WIDTH)
         return;
