@@ -27,6 +27,7 @@ start:
     mov al, 0x03
     int 0x10
 
+    call enable_mem
     call pm_enter
 
 jmp $
@@ -36,6 +37,7 @@ jmp $
 %include "./gdt.asm"
 %include "./pm_print.asm"
 %include "./pm_enter.asm"
+%include "./mem.asm"
 
 [bits 32]
 PM_START:
