@@ -3,5 +3,5 @@
 
 #define FREQUENT_FREQUENCY_COUNT 1183180
 
-void playSound(uint_32 frequency);
+void playSound(uint32_t frequency);
 void stopSound();
