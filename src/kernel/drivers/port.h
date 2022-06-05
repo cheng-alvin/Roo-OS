@@ -1,5 +1,5 @@
 #pragma once
 #include "../lib/ctypes.h"
 
-uint_8 inb(uint_16 port);
-void outb(uint_16 port, uint_8 value);
+uint8_t inb(uint16_t port);
+void outb(uint16_t port, uint8_t value);
