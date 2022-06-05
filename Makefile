@@ -25,10 +25,11 @@ kernel:
 	@echo "Building kernel..."
 	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/kernel.c -o ${BUILD_DIR}/obj/kernel_main.o
 	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/screen.c -o ${BUILD_DIR}/obj/screen_driver.o 
-	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/port.c -o ${BUILD_DIR}/obj/port_driver.o 
+	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/port.c -o ${BUILD_DIR}/obj/port_driver.o
+		@${CC} -ffreestanding -c ${SRC_DIR}/kernel/interrupt/idt.c -o ${BUILD_DIR}/obj/idt.o
 	@${CC} -ffreestanding -c ${SRC_DIR}/kernel/lib/ctypes.c -o ${BUILD_DIR}/obj/lib_ctypes.o   
 		@${CC} -ffreestanding -c ${SRC_DIR}/kernel/drivers/sound.c -o ${BUILD_DIR}/obj/sound_driver.o   
-	@${ASM} ${SRC_DIR}/kernel/kernel_entry.asm -f elf64 -o ${BUILD_DIR}/obj/kernel_entry.o 
+	@${ASM} ${SRC_DIR}/kernel/kernel_entry.asm -f elf64 -o ${BUILD_DIR}/obj/kernel_entry.o -i ${SRC_DIR}/kernel
 	@echo "Kernel built."
 
 clean:
@@ -40,7 +41,7 @@ clean:
 
 link:	
 	@echo "Linking..."
-	@${LINKER} -o ${BUILD_DIR}/kernel.bin -Ttext 0x1000 ${BUILD_DIR}/obj/kernel_main.o ${BUILD_DIR}/obj/sound_driver.o ${BUILD_DIR}/obj/port_driver.o  ${BUILD_DIR}/obj/lib_ctypes.o  ${BUILD_DIR}/obj/screen_driver.o  --oformat binary
+	@${LINKER} -T"linker.ld" 
 	@echo "Linked."
 
 merge:
