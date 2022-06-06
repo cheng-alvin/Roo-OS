@@ -11,6 +11,7 @@ INPUT
    ./build/obj/lib_ctypes.o  
    ./build/obj/screen_driver.o
    ./build/obj/kernel_entry.o 
+   ./build/obj/mem_driver.o 
 )
 
 OUTPUT
@@ -29,7 +30,6 @@ SECTIONS
     .idt BLOCK(0x1000) : ALIGN(0x1000)
     {
       _idt = .;
-      
     }
       .data : ALIGN(0x1000)
     {
