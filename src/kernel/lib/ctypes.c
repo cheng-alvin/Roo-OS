@@ -8,3 +8,5 @@ typedef unsigned long long uint64_t;
 typedef int bool;
 #define true 1
 #define false 0
+
+typedef signed int size_t;
